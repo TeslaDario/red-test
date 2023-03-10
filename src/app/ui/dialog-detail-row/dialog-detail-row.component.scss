@@ -1,10 +1,4 @@
 .detail-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-
-  .label {
-    font-weight: 500;
-  }
+  min-height: min(100px, 90vh);
+  min-width: min(70vw, 90vh);
 }

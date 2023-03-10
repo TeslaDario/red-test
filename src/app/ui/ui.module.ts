@@ -44,6 +44,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
     MatCardModule,
     MatSelectModule,
     MatRippleModule,
+    MatDialogModule,
   ],
   declarations: [
     SidenavComponent,

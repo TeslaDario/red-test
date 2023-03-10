@@ -1,1 +1,17 @@
-<!-- implement search form here -->
+<form [formGroup]="searchForm">
+  <mat-form-field appearance="outline" class="search-input">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Enter search term" formControlName="search" />
+    <!-- todo: (when othes is done) should implement validation -->
+    <!-- <mat-hint align="end">{{input.value.length}}/10</mat-hint> -->
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="select-input">
+    <mat-label>Show</mat-label>
+    <mat-select formControlName="filter">
+      <!-- todo: (when othes is done) Should used better value instead of enum value-->
+      <mat-option *ngFor="let option of filterOptions" [value]="option">{{ option }}</mat-option>
+    </mat-select>
+    <!-- <mat-hint align="end">Here's the dropdown arrow ^</mat-hint> -->
+  </mat-form-field>
+</form>

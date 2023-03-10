@@ -1,4 +1,43 @@
 <div class="detail-row">
-  <div class="label">{{ label }}:</div>
-  <div class="value">{{ data }}</div>
+  <h2 mat-dialog-title>{{data.resourceType}} data</h2>
+  <mat-dialog-content>
+    <div [ngSwitch]="data.resourceType">
+      <div *ngSwitchCase="'Patient'">
+        <ng-container *ngTemplateOutlet="sharedData"></ng-container>
+        <p>Birthdate: <ng-container *ngIf="data.birthDate; else unknownTemp">{{data.birthDate}}</ng-container></p>
+        <p>Gender: <ng-container *ngIf="data.gender; else unknownTemp">{{data.gender}}</ng-container></p>
+        <p>
+          Address:
+          <ng-container *ngIf="data.contact && data.contact[0].address?.line; else unknownTemp">
+            {{data.contact[0].address.line[0]}}, {{data.contact[0].address.postalCode}},
+            {{data.contact[0].address.city}}
+          </ng-container>
+        </p>
+      </div>
+      <div *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="sharedData"></ng-container>
+        <div *ngIf="data.telecom">
+          Telecom:
+          <p style="padding-left: 15px" *ngFor="let item of data.telecom">
+            {{item.system}}: {{item.value}} ({{item.use}})
+          </p>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true">Close</button>
+  </mat-dialog-actions>
 </div>
+
+<ng-template #sharedData>
+  <p>Type: {{data.resourceType}}</p>
+  <p>
+    Name:
+    <ng-container *ngFor="let item of data.name"> {{item}} </ng-container>
+  </p>
+
+  <p>rdId: {{data.id}}</p>
+</ng-template>
+
+<ng-template #unknownTemp>unknown</ng-template>
